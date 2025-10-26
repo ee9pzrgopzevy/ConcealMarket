@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="#1a1a1a" stroke="#3b82f6" stroke-width="2"/>
+
+  <!-- Letter C -->
+  <path d="M 35 30 Q 28 30 28 37 L 28 63 Q 28 70 35 70 L 42 70 Q 42 63 42 63 L 35 63 Q 35 60 35 57 L 35 43 Q 35 40 35 37 L 42 37 Q 42 30 42 30 Z" fill="#3b82f6"/>
+
+  <!-- Letter M -->
+  <path d="M 52 30 L 52 70 L 58 70 L 58 45 L 65 60 L 72 45 L 72 70 L 78 70 L 78 30 L 72 30 L 65 50 L 58 30 Z" fill="#3b82f6"/>
+
+  <!-- Optional: Add a small lock icon to represent privacy -->
+  <g transform="translate(50, 85) scale(0.3)">
+    <rect x="-8" y="-4" width="16" height="10" rx="1" fill="#3b82f6" opacity="0.6"/>
+    <path d="M -5 -4 L -5 -8 Q -5 -12 0 -12 Q 5 -12 5 -8 L 5 -4" stroke="#3b82f6" stroke-width="2" fill="none" opacity="0.6"/>
+  </g>
+</svg>
