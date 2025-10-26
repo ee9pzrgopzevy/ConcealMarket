@@ -5,8 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const categories = [
+  "All",
   "Trending",
-  "Breaking",
   "New",
   "Politics",
   "Sports",
@@ -17,7 +17,12 @@ const categories = [
   "Culture",
 ];
 
-export const Navbar = () => {
+interface NavbarProps {
+  selectedCategory?: string;
+  onCategoryChange?: (category: string) => void;
+}
+
+export const Navbar = ({ selectedCategory = "All", onCategoryChange }: NavbarProps) => {
   return (
     <nav className="sticky top-0 z-50 bg-background border-b">
       <div className="container mx-auto px-4">
@@ -53,7 +58,12 @@ export const Navbar = () => {
           {categories.map((category) => (
             <button
               key={category}
-              className="text-sm text-muted-foreground hover:text-foreground whitespace-nowrap transition-colors"
+              onClick={() => onCategoryChange?.(category)}
+              className={`text-sm whitespace-nowrap transition-colors ${
+                selectedCategory === category
+                  ? "text-foreground font-semibold border-b-2 border-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
             >
               {category}
             </button>
