@@ -10,16 +10,15 @@ const About = () => {
       <main className="container mx-auto px-4 py-8">
         {/* Demo Video Section */}
         <section className="mb-12">
-          <div className="aspect-video w-full max-w-4xl mx-auto bg-muted/30 rounded-lg border-2 border-dashed border-muted-foreground/20 flex items-center justify-center">
-            <div className="text-center">
-              <div className="text-6xl mb-4">🎬</div>
-              <p className="text-xl font-semibold text-muted-foreground">
-                Demo Video Placeholder
-              </p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Video will be placed here
-              </p>
-            </div>
+          <div className="aspect-video w-full max-w-4xl mx-auto bg-black rounded-lg overflow-hidden">
+            <video
+              className="w-full h-full"
+              controls
+              poster=""
+            >
+              <source src="/demo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </section>
 
