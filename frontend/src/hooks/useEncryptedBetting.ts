@@ -3,7 +3,7 @@ import { parseEther } from "viem";
 import { encryptBet } from "@/lib/fhe";
 import { toast } from "sonner";
 
-const BETTING_ADDRESS = import.meta.env.VITE_BETTING_ADDRESS as `0x${string}`;
+const BETTING_ADDRESS = "0x41f9a20809FBa2232Bc6891646881c01973DE1aE" as `0x${string}`;
 
 const BETTING_ABI = [
   {

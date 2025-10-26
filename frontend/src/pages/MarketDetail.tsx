@@ -38,8 +38,8 @@ const MarketDetail = () => {
     if (!market) return;
 
     const amountWei = parseFloat(betAmount) * 1e18;
-    const minBet = Number(market.minBetAmount);
-    const maxBet = Number(market.maxBetAmount);
+    const minBet = Number(market.minBet);
+    const maxBet = Number(market.maxBet);
 
     if (amountWei < minBet) {
       toast.error(`Minimum bet is ${formatEther(BigInt(minBet))} ETH`);
@@ -199,24 +199,24 @@ const MarketDetail = () => {
                 <div>
                   <span className="text-muted-foreground">Min Bet</span>
                   <p className="font-semibold mt-1">
-                    {formatEther(BigInt(market.minBetAmount))} ETH
+                    {formatEther(BigInt(market.minBet))} ETH
                   </p>
                 </div>
                 <div>
                   <span className="text-muted-foreground">Max Bet</span>
                   <p className="font-semibold mt-1">
-                    {formatEther(BigInt(market.maxBetAmount))} ETH
-                  </p>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Created</span>
-                  <p className="mt-1">
-                    {new Date(Number(market.createdAt) * 1000).toLocaleDateString()}
+                    {formatEther(BigInt(market.maxBet))} ETH
                   </p>
                 </div>
                 <div>
                   <span className="text-muted-foreground">Market ID</span>
                   <p className="font-mono mt-1">#{marketId}</p>
+                </div>
+                <div>
+                  <span className="text-muted-foreground">End Date</span>
+                  <p className="mt-1">
+                    {endDate.toLocaleDateString()}
+                  </p>
                 </div>
               </div>
             </Card>
@@ -358,7 +358,7 @@ const MarketDetail = () => {
                         size="sm"
                         variant="outline"
                         onClick={() =>
-                          setBetAmount(formatEther(BigInt(market.maxBetAmount)))
+                          setBetAmount(formatEther(BigInt(market.maxBet)))
                         }
                       >
                         Max

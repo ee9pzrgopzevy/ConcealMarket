@@ -1,7 +1,7 @@
 import { useWriteContract, useReadContract, useAccount } from "wagmi";
 import { parseEther } from "viem";
 
-const MARKET_ADDRESS = import.meta.env.VITE_MARKET_ADDRESS as `0x${string}`;
+const MARKET_ADDRESS = "0x6E435CaC8B2abF29dfBaBD4f0EC4c60cf1eC3821" as `0x${string}`;
 
 const MARKET_ABI = [
   {
