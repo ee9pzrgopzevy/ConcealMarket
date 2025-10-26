@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import MarketDetail from "./pages/MarketDetail";
 import CreateMarket from "./pages/CreateMarket";
 import About from "./pages/About";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
               <Route path="/market/:id" element={<MarketDetail />} />
               <Route path="/create" element={<CreateMarket />} />
               <Route path="/about" element={<About />} />
+              <Route path="/profile" element={<Profile />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

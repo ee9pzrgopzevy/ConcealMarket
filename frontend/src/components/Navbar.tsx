@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
-import { Search, TrendingUp } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Search, TrendingUp, User } from "lucide-react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useAccount } from "wagmi";
 
 const categories = [
   "All",
@@ -23,6 +24,9 @@ interface NavbarProps {
 }
 
 export const Navbar = ({ selectedCategory = "All", onCategoryChange }: NavbarProps) => {
+  const navigate = useNavigate();
+  const { isConnected } = useAccount();
+
   return (
     <nav className="sticky top-0 z-50 bg-background border-b">
       <div className="container mx-auto px-4">
@@ -50,6 +54,16 @@ export const Navbar = ({ selectedCategory = "All", onCategoryChange }: NavbarPro
             <Link to="/create">
               <Button variant="outline">Create Market</Button>
             </Link>
+            {isConnected && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => navigate("/profile")}
+                title="View Profile"
+              >
+                <User className="h-5 w-5" />
+              </Button>
+            )}
             <ConnectButton />
           </div>
         </div>
