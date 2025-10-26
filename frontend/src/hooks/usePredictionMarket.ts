@@ -1,13 +1,14 @@
 import { useWriteContract, useReadContract, useAccount } from "wagmi";
 import { parseEther } from "viem";
 
-const MARKET_ADDRESS = "0x6E435CaC8B2abF29dfBaBD4f0EC4c60cf1eC3821" as `0x${string}`;
+const MARKET_ADDRESS = "0x8Dce79619d45493a7D8b8D9B8300cE5E92495003" as `0x${string}`;
 
 const MARKET_ABI = [
   {
     inputs: [
       { name: "question", type: "string" },
       { name: "options", type: "string[]" },
+      { name: "category", type: "string" },
       { name: "endTime", type: "uint64" },
       { name: "minBetAmount", type: "uint256" },
       { name: "maxBetAmount", type: "uint256" },
@@ -61,6 +62,7 @@ const MARKET_ABI = [
       { name: "creator", type: "address" },
       { name: "question", type: "string" },
       { name: "options", type: "string[]" },
+      { name: "category", type: "string" },
       { name: "endTime", type: "uint64" },
       { name: "oracle", type: "address" },
       { name: "status", type: "uint8" },
@@ -108,6 +110,7 @@ export function usePredictionMarket() {
   const createMarket = async (
     question: string,
     options: string[],
+    category: string,
     endTime: number,
     minBetETH: string,
     maxBetETH: string,
@@ -120,6 +123,7 @@ export function usePredictionMarket() {
       args: [
         question,
         options,
+        category,
         BigInt(endTime),
         parseEther(minBetETH),
         parseEther(maxBetETH),
@@ -181,13 +185,14 @@ export function useMarket(marketId: number) {
           creator: data[0],
           question: data[1],
           options: data[2],
-          endTime: data[3],
-          oracle: data[4],
-          status: data[5],
-          winningOption: data[6],
-          totalPool: data[7],
-          minBet: data[8],
-          maxBet: data[9],
+          category: data[3],
+          endTime: data[4],
+          oracle: data[5],
+          status: data[6],
+          winningOption: data[7],
+          totalPool: data[8],
+          minBet: data[9],
+          maxBet: data[10],
         }
       : null,
     isLoading,

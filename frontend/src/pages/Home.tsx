@@ -6,37 +6,6 @@ import { Link } from "react-router-dom";
 import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 
-const categorizeMarket = (question: string): string => {
-  const q = question.toLowerCase();
-
-  if (q.includes("bitcoin") || q.includes("ethereum") || q.includes("crypto") || q.includes("btc") || q.includes("eth")) {
-    return "Crypto";
-  }
-  if (q.includes("ai") || q.includes("artificial") || q.includes("openai") || q.includes("anthropic") || q.includes("deepmind")) {
-    return "Tech";
-  }
-  if (q.includes("fhe") || q.includes("encryption") || q.includes("zama") || q.includes("l2") || q.includes("layer") || q.includes("arbitrum") || q.includes("optimism")) {
-    return "Tech";
-  }
-  if (q.includes("election") || q.includes("president") || q.includes("political")) {
-    return "Politics";
-  }
-  if (q.includes("sport") || q.includes("football") || q.includes("basketball")) {
-    return "Sports";
-  }
-  if (q.includes("stock") || q.includes("valuation") || q.includes("finance") || q.includes("economy")) {
-    return "Finance";
-  }
-  if (q.includes("war") || q.includes("peace") || q.includes("geopolit")) {
-    return "Geopolitics";
-  }
-  if (q.includes("movie") || q.includes("music") || q.includes("culture")) {
-    return "Culture";
-  }
-
-  return "New";
-};
-
 const Home = () => {
   const { marketIds, isLoading } = useActiveMarkets();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -112,9 +81,7 @@ const MarketCardWrapper = ({
     return <div className="h-64 bg-muted/30 animate-pulse rounded-lg" />;
   }
 
-  const category = categorizeMarket(market.question);
-
-  if (selectedCategory !== "All" && category !== selectedCategory) {
+  if (selectedCategory !== "All" && market.category !== selectedCategory) {
     return null;
   }
 
@@ -123,7 +90,7 @@ const MarketCardWrapper = ({
       id={marketId.toString()}
       title={market.question}
       icon="🎲"
-      category={category}
+      category={market.category}
       endDate={new Date(Number(market.endTime) * 1000).toLocaleDateString()}
       volume={(Number(market.totalPool) / 1e18).toFixed(2) + " ETH"}
       status={market.status}

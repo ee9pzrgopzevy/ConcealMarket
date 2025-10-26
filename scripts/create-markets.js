@@ -3,7 +3,7 @@ const { ethers } = require("hardhat");
 async function main() {
   console.log("🎯 Creating Prediction Markets on Sepolia...\n");
 
-  const MARKET_ADDRESS = "0x6E435CaC8B2abF29dfBaBD4f0EC4c60cf1eC3821";
+  const MARKET_ADDRESS = "0x8Dce79619d45493a7D8b8D9B8300cE5E92495003";
 
   const [deployer] = await ethers.getSigners();
   console.log("Creator address:", deployer.address);
@@ -25,30 +25,35 @@ async function main() {
     {
       question: "Will Bitcoin reach $150,000 by end of 2025?",
       options: ["Yes", "No"],
+      category: "Crypto",
       minBet: "0.001",
       maxBet: "10",
     },
     {
       question: "Will Ethereum upgrade to ETH 3.0 successfully in 2025?",
       options: ["Yes", "No"],
+      category: "Crypto",
       minBet: "0.001",
       maxBet: "5",
     },
     {
       question: "Which AI company will have the highest valuation in 90 days?",
       options: ["OpenAI", "Anthropic", "Google DeepMind", "Meta AI"],
+      category: "Tech",
       minBet: "0.001",
       maxBet: "10",
     },
     {
       question: "Will FHE (Fully Homomorphic Encryption) become mainstream in Web3?",
       options: ["Yes - within 6 months", "Yes - within 1 year", "No - will take longer"],
+      category: "Tech",
       minBet: "0.001",
       maxBet: "5",
     },
     {
       question: "What will be the dominant L2 solution by market cap in 90 days?",
       options: ["Arbitrum", "Optimism", "Base", "zkSync", "Other"],
+      category: "Tech",
       minBet: "0.001",
       maxBet: "10",
     },
@@ -59,6 +64,7 @@ async function main() {
   for (let i = 0; i < markets.length; i++) {
     const market = markets[i];
     console.log(`📊 Market ${i + 1}/${markets.length}: ${market.question}`);
+    console.log(`   Category: ${market.category}`);
     console.log(`   Options: ${market.options.join(", ")}`);
     console.log(`   Min Bet: ${market.minBet} ETH, Max Bet: ${market.maxBet} ETH`);
 
@@ -66,6 +72,7 @@ async function main() {
       const tx = await marketContract.createMarket(
         market.question,
         market.options,
+        market.category,
         BigInt(endTime),
         ethers.parseEther(market.minBet),
         ethers.parseEther(market.maxBet),

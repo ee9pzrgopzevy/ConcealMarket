@@ -13,6 +13,7 @@ contract PredictionMarketCore is Ownable {
         address creator;
         string question;
         string[] options;
+        string category;
         uint64 endTime;
         address oracle;
         MarketStatus status;
@@ -42,6 +43,7 @@ contract PredictionMarketCore is Ownable {
     function createMarket(
         string calldata question,
         string[] calldata options,
+        string calldata category,
         uint64 endTime,
         uint256 minBetAmount,
         uint256 maxBetAmount
@@ -58,6 +60,7 @@ contract PredictionMarketCore is Ownable {
         m.creator = msg.sender;
         m.question = question;
         m.options = options;
+        m.category = category;
         m.endTime = endTime;
         m.oracle = msg.sender; // Creator is default oracle
         m.status = MarketStatus.Active;
@@ -145,6 +148,7 @@ contract PredictionMarketCore is Ownable {
         address creator,
         string memory question,
         string[] memory options,
+        string memory category,
         uint64 endTime,
         address oracle,
         MarketStatus status,
@@ -158,6 +162,7 @@ contract PredictionMarketCore is Ownable {
             m.creator,
             m.question,
             m.options,
+            m.category,
             m.endTime,
             m.oracle,
             m.status,
