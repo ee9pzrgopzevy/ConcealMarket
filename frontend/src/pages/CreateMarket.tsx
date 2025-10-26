@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CalendarIcon, Plus, X } from "lucide-react";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
@@ -22,10 +23,13 @@ const CreateMarket = () => {
 
   const [date, setDate] = useState<Date>();
   const [question, setQuestion] = useState("");
+  const [category, setCategory] = useState("");
   const [options, setOptions] = useState<string[]>(["", ""]);
   const [minBet, setMinBet] = useState("0.01");
   const [maxBet, setMaxBet] = useState("10");
   const [isCreating, setIsCreating] = useState(false);
+
+  const categories = ["Crypto", "Tech", "Politics", "Sports", "Finance", "Geopolitics", "Culture", "New"];
 
   const addOption = () => {
     if (options.length < 10) {
@@ -51,7 +55,7 @@ const CreateMarket = () => {
       return;
     }
 
-    if (!question || !date) {
+    if (!question || !category || !date) {
       toast.error("Please fill in all required fields");
       return;
     }
@@ -74,6 +78,7 @@ const CreateMarket = () => {
       const tx = await createMarket(
         question,
         validOptions,
+        category,
         endTime,
         minBet,
         maxBet,
@@ -114,6 +119,22 @@ const CreateMarket = () => {
                   onChange={(e) => setQuestion(e.target.value)}
                   className="mt-2"
                 />
+              </div>
+
+              <div>
+                <Label htmlFor="category">Category *</Label>
+                <Select value={category} onValueChange={setCategory}>
+                  <SelectTrigger className="mt-2">
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((cat) => (
+                      <SelectItem key={cat} value={cat}>
+                        {cat}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
               <div>
