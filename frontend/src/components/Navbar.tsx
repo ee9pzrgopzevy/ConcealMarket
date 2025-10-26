@@ -39,6 +39,9 @@ export const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-4">
+            <Link to="/about">
+              <Button variant="ghost">About</Button>
+            </Link>
             <Link to="/create">
               <Button variant="outline">Create Market</Button>
             </Link>
