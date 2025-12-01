@@ -29,7 +29,6 @@ contract PredictionMarketCore is Ownable {
     mapping(address => uint256[]) public userCreatedMarkets;
 
     uint256 public nextMarketId;
-    uint256 public marketCreationFee = 0.01 ether;
 
     event MarketCreated(uint256 indexed marketId, address indexed creator, string question, uint8 optionCount, uint64 endTime);
     event MarketClosed(uint256 indexed marketId, uint64 closedAt);
@@ -39,7 +38,7 @@ contract PredictionMarketCore is Ownable {
 
     constructor() Ownable(msg.sender) {}
 
-    /// @notice Create a new prediction market (anyone can create)
+    /// @notice Create a new prediction market (free, only gas required)
     function createMarket(
         string calldata question,
         string[] calldata options,
@@ -47,8 +46,7 @@ contract PredictionMarketCore is Ownable {
         uint64 endTime,
         uint256 minBetAmount,
         uint256 maxBetAmount
-    ) external payable returns (uint256) {
-        require(msg.value >= marketCreationFee, "Insufficient creation fee");
+    ) external returns (uint256) {
         require(options.length >= 2 && options.length <= 10, "Invalid option count");
         require(endTime > block.timestamp + 1 hours, "End time too soon");
         require(endTime <= block.timestamp + 365 days, "End time too far");
@@ -117,20 +115,6 @@ contract PredictionMarketCore is Ownable {
 
         m.status = MarketStatus.Cancelled;
         emit MarketCancelled(marketId, reason);
-    }
-
-    /// @notice Set market creation fee (owner only)
-    function setMarketCreationFee(uint256 newFee) external onlyOwner {
-        marketCreationFee = newFee;
-    }
-
-    /// @notice Withdraw creation fees (owner only)
-    function withdrawFees() external onlyOwner {
-        uint256 balance = address(this).balance;
-        require(balance > 0, "No balance");
-
-        (bool success, ) = payable(owner()).call{value: balance}("");
-        require(success, "Transfer failed");
     }
 
     /// @notice Add bettor to market (called by betting contract)
