@@ -86,5 +86,3 @@ const config: HardhatUserConfig = {
 };
 
 export default config;
-import { config as dotenvConfig } from "dotenv";
-dotenvConfig();
