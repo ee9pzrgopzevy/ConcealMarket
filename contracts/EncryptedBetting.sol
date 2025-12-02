@@ -2,7 +2,7 @@
 pragma solidity ^0.8.24;
 
 import {FHE, euint8, euint64, externalEuint8, externalEuint64, ebool} from "@fhevm/solidity/lib/FHE.sol";
-import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
+import {ZamaEthereumConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 interface IPredictionMarketCore {
@@ -13,7 +13,7 @@ interface IPredictionMarketCore {
 
 /// @title Encrypted Betting - FHE Bet Management
 /// @notice Handles encrypted bet placement and storage
-contract EncryptedBetting is SepoliaConfig, ReentrancyGuard {
+contract EncryptedBetting is ZamaEthereumConfig, ReentrancyGuard {
 
     struct Bet {
         euint8 option;
