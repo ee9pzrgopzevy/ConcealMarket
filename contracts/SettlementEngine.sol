@@ -2,6 +2,7 @@
 pragma solidity ^0.8.24;
 
 import {FHE, euint8, euint64} from "@fhevm/solidity/lib/FHE.sol";
+import {ZamaEthereumConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 
 interface IEncryptedBetting {
     function getUserBet(uint256 marketId, address user) external view returns (euint8, euint64, bool, uint64);
@@ -17,7 +18,8 @@ interface IPredictionMarketCore {
 
 /// @title Settlement Engine - Payout Calculation
 /// @notice Handles settlement and payout distribution for prediction markets
-contract SettlementEngine {
+/// @dev Uses FHE 0.9.1 self-relaying decryption model
+contract SettlementEngine is ZamaEthereumConfig {
 
     IEncryptedBetting public bettingContract;
     IPredictionMarketCore public marketCore;
