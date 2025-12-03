@@ -1,7 +1,7 @@
 import { useWriteContract, useReadContract, useAccount } from "wagmi";
 import { parseEther } from "viem";
 
-const MARKET_ADDRESS = "0x8Dce79619d45493a7D8b8D9B8300cE5E92495003" as `0x${string}`;
+const MARKET_ADDRESS = "0x8698b5d567c3DCD04dDea554C2C1B284c612989a" as `0x${string}`;
 
 const MARKET_ABI = [
   {
@@ -15,7 +15,7 @@ const MARKET_ABI = [
     ],
     name: "createMarket",
     outputs: [{ name: "", type: "uint256" }],
-    stateMutability: "payable",
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -95,13 +95,6 @@ const MARKET_ABI = [
     stateMutability: "view",
     type: "function",
   },
-  {
-    inputs: [],
-    name: "marketCreationFee",
-    outputs: [{ name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
 ] as const;
 
 export function usePredictionMarket() {
@@ -113,8 +106,7 @@ export function usePredictionMarket() {
     category: string,
     endTime: number,
     minBetETH: string,
-    maxBetETH: string,
-    creationFeeETH: string
+    maxBetETH: string
   ) => {
     return await writeContractAsync({
       address: MARKET_ADDRESS,
@@ -128,7 +120,6 @@ export function usePredictionMarket() {
         parseEther(minBetETH),
         parseEther(maxBetETH),
       ],
-      value: parseEther(creationFeeETH),
     });
   };
 
@@ -235,12 +226,3 @@ export function useBettorCount(marketId: number) {
   return { count: data || BigInt(0), isLoading };
 }
 
-export function useMarketCreationFee() {
-  const { data, isLoading } = useReadContract({
-    address: MARKET_ADDRESS,
-    abi: MARKET_ABI,
-    functionName: "marketCreationFee",
-  });
-
-  return { fee: data || BigInt(0), isLoading };
-}
